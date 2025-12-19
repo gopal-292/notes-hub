@@ -45,24 +45,21 @@
     </div>
 
     <script>
-        async function loadFiles() {
-            const res = await fetch('/api/files');
-            const files = await res.json();
-            const container = document.getElementById('fileList');
-            
-            container.innerHTML = files.map(f => `
-                <tr class="hover:bg-gray-50 transition">
-                    <td class="p-4 font-medium text-gray-800">${f.originalName}</td>
-                    <td class="p-4 text-sm text-gray-500">${f.subject} (${f.semester})</td>
-                    <td class="p-4 text-right space-x-2">
-                        <a href="/files/${f.serverName}" target="_blank" class="bg-blue-100 text-blue-700 px-3 py-1 rounded text-sm font-semibold hover:bg-blue-200">View</a>
-                        
-                        <a href="/files/${f.serverName}" download="${f.originalName}" class="bg-green-100 text-green-700 px-3 py-1 rounded text-sm font-semibold hover:bg-green-200">Download</a>
-                    </td>
-                </tr>
-            `).join('');
-        }
-        loadFiles();
+       async function loadFiles() {
+    const res = await fetch('/api/files');
+    const files = await res.json();
+    const container = document.getElementById('fileList');
+    
+    container.innerHTML = files.map(f => `
+        <tr class="hover:bg-gray-50 border-t">
+            <td class="p-4 font-medium">${f.originalName}</td>
+            <td class="p-4 text-right">
+                <a href="${f.serverName}" target="_blank" class="text-blue-600 font-bold hover:underline">View / Download</a>
+            </td>
+        </tr>
+    `).join('');
+}
+loadFiles();
     </script>
 </body>
 </html>
